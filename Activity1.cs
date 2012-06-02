@@ -7,25 +7,14 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace ComicsViewer
+namespace ComicsViewer.Actvities
 {
-    [Activity(Label = "ComicsViewer", MainLauncher = true, Icon = "@drawable/icon")]
-    public class Activity1 : Activity
+    [Activity(Label = "Otwórz komiks", MainLauncher = true, Icon = "@drawable/icon")]
+    public class Activity1 : FileBrowserActivity
     {
-        int count = 1;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
-
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
-
-            button.Click += (src, args) => { button.Text = string.Format("{0} clicks!", count++); };
         }
     }
 }

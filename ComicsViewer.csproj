@@ -15,6 +15,10 @@
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidSupportedAbis>x86</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,12 +51,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity1.cs" />
+    <Compile Include="Actvities\FileBrowserActivity.cs" />
+    <Compile Include="Events\ItemClickedEventArgs.cs" />
+    <Compile Include="Adapters\FileBrowserAdapter.cs" />
+    <Compile Include="Controllers\FileBrowserController.cs" />
+    <Compile Include="Events\PathChangedEventArgs.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\FileBrowserView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\Layout\FileBrowser.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ParentRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\FileRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\DirectoryRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -63,6 +85,21 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <AndroidResource Include="Resources\Drawable-hdpi\speech_balloon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\folder.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\folder_up.png" />
+    <AndroidResource Include="Resources\Drawable-ldpi\folder_up.png" />
+    <AndroidResource Include="Resources\Drawable-ldpi\folder.png" />
+    <AndroidResource Include="Resources\Drawable-ldpi\speech_balloon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\folder_up.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\folder.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\speech_balloon.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
