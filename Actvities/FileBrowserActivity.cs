@@ -16,7 +16,7 @@ using ComicsViewer.Controllers;
 
 namespace ComicsViewer.Actvities
 {
-    [Activity()]
+    [Activity(Label = "Otwórz komiks")]
     public class FileBrowserActivity : ListActivity
     {
         private TextView CurrentPathView;
@@ -44,7 +44,6 @@ namespace ComicsViewer.Actvities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
             SetContentView(Resource.Layout.FileBrowser);
             CurrentPathView = FindViewById<TextView>(Resource.Id.CurrentPath);
             new FileBrowserController(this);

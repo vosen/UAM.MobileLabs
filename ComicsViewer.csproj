@@ -50,8 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity1.cs" />
+    <Compile Include="Actvities\MainActivity.cs" />
     <Compile Include="Actvities\FileBrowserActivity.cs" />
+    <Compile Include="Actvities\ViewerActivity.cs" />
     <Compile Include="Events\ItemClickedEventArgs.cs" />
     <Compile Include="Adapters\FileBrowserAdapter.cs" />
     <Compile Include="Controllers\FileBrowserController.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\FileBrowserView.cs" />
+    <Compile Include="Views\TouchImageView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -73,6 +75,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\DirectoryRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Viewer.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -98,6 +103,12 @@
     <AndroidResource Include="Resources\Drawable-mdpi\folder_up.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\folder.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\speech_balloon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\arrow_right.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\arrow_left.png" />
+    <AndroidResource Include="Resources\Drawable-ldpi\arrow_right.png" />
+    <AndroidResource Include="Resources\Drawable-ldpi\arrow_left.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\arrow_right.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\arrow_left.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

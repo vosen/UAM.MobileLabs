@@ -9,12 +9,14 @@ using Android.OS;
 
 namespace ComicsViewer.Actvities
 {
-    [Activity(Label = "Otwórz komiks", MainLauncher = true, Icon = "@drawable/icon")]
-    public class Activity1 : FileBrowserActivity
+    [Activity(MainLauncher = true, Icon = "@drawable/icon", NoHistory = true)]
+    public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            //StartActivity(typeof(FileBrowserActivity));
+            StartActivity(typeof(ViewerActivity));
         }
     }
 }

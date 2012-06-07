@@ -27,16 +27,22 @@ namespace ComicsViewer
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int folder = 2130837504;
+			public const int arrow_left = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int folder_up = 2130837505;
+			public const int arrow_right = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Icon = 2130837506;
+			public const int folder = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int speech_balloon = 2130837507;
+			public const int folder_up = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Icon = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int speech_balloon = 2130837509;
 			
 			private Drawable()
 			{
@@ -49,11 +55,17 @@ namespace ComicsViewer
 			// aapt resource value: 0x7f050001
 			public const int CurrentPath = 2131034113;
 			
+			// aapt resource value: 0x7f050003
+			public const int MainImage = 2131034115;
+			
 			// aapt resource value: 0x7f050002
 			public const int MyButton = 2131034114;
 			
 			// aapt resource value: 0x7f050000
 			public const int RowText = 2131034112;
+			
+			// aapt resource value: 0x7f050004
+			public const int ZoomButtons = 2131034116;
 			
 			private Id()
 			{
@@ -77,6 +89,9 @@ namespace ComicsViewer
 			
 			// aapt resource value: 0x7f030004
 			public const int ParentRow = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int Viewer = 2130903045;
 			
 			private Layout()
 			{

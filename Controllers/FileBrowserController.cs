@@ -41,8 +41,8 @@ namespace ComicsViewer.Controllers
 
         private void OnCurrentPathChanged()
         {
-            Files = CurrentDirectory.EnumerateFiles().Where(fi => fi.Extension == ".zip" || fi.Extension == ".cbz").ToArray();
-            Directories = CurrentDirectory.EnumerateDirectories().ToArray();
+            Files = CurrentDirectory.GetFiles().Where(fi => fi.Extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) ).ToArray();
+            Directories = CurrentDirectory.EnumerateDirectories().Where(dir => !dir.Attributes.HasFlag(FileAttributes.Hidden)).ToArray();
             Activity.CurrentPath = CurrentDirectory.FullName;
             Adapter.NotifyDataSetChanged();
         }
