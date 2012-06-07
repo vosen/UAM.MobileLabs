@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\FileBrowserView.cs" />
     <Compile Include="Views\TouchImageView.cs" />
+    <Compile Include="Views\TouchImageViewState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

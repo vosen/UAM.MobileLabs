@@ -28,7 +28,8 @@ namespace ComicsViewer.Actvities
             SetContentView(Resource.Layout.Viewer);
             MainImage = FindViewById<TouchImageView>(Resource.Id.MainImage);
             Zoom = FindViewById<ZoomControls>(Resource.Id.ZoomButtons);
-            Zoom.ZoomInClick += (src, args) => MainImage.Scale(0.3f);
+            Zoom.ZoomInClick += (src, args) => MainImage.ZoomIn();
+            Zoom.ZoomOutClick += (src, args) => MainImage.ZoomOut();
             MainImage.SetImageBitmap(((BitmapDrawable)Resources.GetDrawable(Resource.Drawable.speech_balloon)).Bitmap);
             //MainImage.SetImageBitmap();
         }
