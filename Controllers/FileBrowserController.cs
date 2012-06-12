@@ -70,11 +70,24 @@ namespace ComicsViewer.Controllers
         {
             if (IsParentRow(position))
                 CurrentDirectory = CurrentDirectory.Parent;
-            else if(IsRoot && IsDirectoryRow(position))
+            else if (IsRoot && IsDirectoryRow(position))
                 CurrentDirectory = Directories[position];
             else if (!IsRoot && IsDirectoryRow(position))
                 CurrentDirectory = Directories[position - 1];
             // do something on click
+            else if (!IsRoot)
+                OpenFile(Files[position - Directories.Length - 1].FullName);
+            else
+                OpenFile(Files[position - Directories.Length].FullName);
+        }
+
+        private void OpenFile(string path)
+        {
+            ComicsViewer.Models.Comics.FromPath(path);
+            var intent = new Intent(Activity.ApplicationContext, typeof(ViewerActivity));
+            intent.PutExtra("ComicsPath", path);
+            Activity.StartActivity(intent);
+
         }
 
         public string FileDirectoryName(int position)

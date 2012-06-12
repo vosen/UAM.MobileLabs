@@ -53,12 +53,15 @@
     <Compile Include="Actvities\MainActivity.cs" />
     <Compile Include="Actvities\FileBrowserActivity.cs" />
     <Compile Include="Actvities\ViewerActivity.cs" />
+    <Compile Include="Controllers\ViewerController.cs" />
     <Compile Include="Events\ItemClickedEventArgs.cs" />
     <Compile Include="Adapters\FileBrowserAdapter.cs" />
     <Compile Include="Controllers\FileBrowserController.cs" />
     <Compile Include="Events\PathChangedEventArgs.cs" />
+    <Compile Include="Models\Comics.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamExtensions.cs" />
     <Compile Include="Views\FileBrowserView.cs" />
     <Compile Include="Views\TouchImageView.cs" />
     <Compile Include="Views\TouchImageViewState.cs" />
