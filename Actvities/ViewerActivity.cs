@@ -25,6 +25,10 @@ namespace ComicsViewer.Actvities
         private ImageButton LeftButton { get; set; }
         private ImageButton RightButton { get; set; }
 
+        public event EventHandler TurnLeftClicked;
+        public event EventHandler TurnRightClicked;
+        public event EventHandler OpenClicked;
+
         protected override void OnCreate(Bundle bundle)
         {
             RequestWindowFeature(WindowFeatures.NoTitle);
@@ -39,14 +43,13 @@ namespace ComicsViewer.Actvities
             // wire the views
             Zoom.ZoomInClick += (src, args) => MainImage.ZoomIn();
             Zoom.ZoomOutClick += (src, args) => MainImage.ZoomOut();
-            OpenButton.Click += (src, args) => StartActivity(new Intent(ApplicationContext, typeof(FileBrowserActivity)));
-            LeftButton.Click += new EventHandler(LeftButton_Click);
+            OpenButton.Click += (src, args) => OnOpenButtonClick(args);
+            LeftButton.Click += (src, args) => OnLeftButtonClick(args);
+            RightButton.Click += (src, args) => OnRightButtonClick(args);
             if (Intent.Extras != null && Intent.Extras.ContainsKey("ComicsPath"))
                 new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
             else
                 new ViewerController(this, null);
-            //MainImage.SetImageBitmap(((BitmapDrawable)Resources.GetDrawable(Resource.Drawable.speech_balloon)).Bitmap);
-            //MainImage.SetImageBitmap();
         }
 
         public void SetBitmap(Bitmap bitmap)
@@ -54,9 +57,22 @@ namespace ComicsViewer.Actvities
             MainImage.SetImageBitmap(bitmap);
         }
 
-        void LeftButton_Click(object sender, EventArgs e)
+        void OnLeftButtonClick(EventArgs e)
         {
-            throw new NotImplementedException();
+            if (TurnLeftClicked != null)
+                TurnLeftClicked(this, e);
+        }
+
+        void OnRightButtonClick(EventArgs e)
+        {
+            if (TurnRightClicked != null)
+                TurnRightClicked(this, e);
+        }
+
+        void OnOpenButtonClick(EventArgs e)
+        {
+            if (OpenClicked != null)
+                OpenClicked(this, e);
         }
     }
 }

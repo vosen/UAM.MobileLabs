@@ -13,6 +13,7 @@ using System.IO;
 
 namespace ComicsViewer
 {
+    // Taken from Jon Skeet's MiscUtil
     static class StreamExtensions
     {
         const int DefaultBufferSize = 8 * 1024;
