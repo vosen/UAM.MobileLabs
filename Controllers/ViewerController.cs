@@ -15,6 +15,7 @@ namespace ComicsViewer.Controllers
         public ViewerActivity Activity { get; private set; }
         public Bitmap Current { get; private set; }
         private int Index { get; set; }
+        private Database db;
 
         public ViewerController(ViewerActivity activity, string path)
         {
@@ -22,10 +23,24 @@ namespace ComicsViewer.Controllers
             activity.OpenClicked += (src, args) => OpenFileBrowser();
             activity.TurnLeftClicked += (src, args) => TurnLeft();
             activity.TurnRightClicked += (src, args) => TurnRight();
+            activity.Stopped += (src, args) => SaveComics();
+            db = new Database();
             if (path != null)
             {
                 LoadComics(path);
-                OpenPage(0);
+            }
+        }
+
+        private void SaveComics()
+        {
+            if (Comics != null)
+            {
+                db.SaveSettingsForPath(Comics.Path,
+                    new ComicsSettings(
+                        Index,
+                        Activity.MainImage.TranslationX,
+                        Activity.MainImage.TranslationY,
+                        Activity.MainImage.CurrentStep));
             }
         }
 
@@ -36,7 +51,23 @@ namespace ComicsViewer.Controllers
 
         private void LoadComics(string path)
         {
+            // load the comics
             Comics = Comics.FromPath(path);
+
+            // load new settings
+            ComicsSettings settings = db.GetSettingsForPath(path);
+            if (settings != null)
+            {
+                OpenPage(settings.Page);
+                Activity.MainImage.CurrentStep = settings.ZoomStep;
+                Activity.MainImage.TranslationX = (float)settings.TranslationX;
+                Activity.MainImage.TranslationY = (float)settings.TranslationY;
+                Activity.MainImage.RefreshLayout();
+            }
+            else
+            {
+                OpenPage(0);
+            }
         }
 
         private void OpenPage(int idx)

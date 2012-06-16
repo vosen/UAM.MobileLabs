@@ -19,7 +19,7 @@ namespace ComicsViewer.Actvities
     [Activity(Label = "My Activity")]
     public class ViewerActivity : Activity
     {
-        private TouchImageView MainImage { get; set; }
+        public TouchImageView MainImage { get; private set; }
         private ZoomControls Zoom { get; set; }
         private ImageButton OpenButton { get; set; }
         private ImageButton LeftButton { get; set; }
@@ -28,6 +28,7 @@ namespace ComicsViewer.Actvities
         public event EventHandler TurnLeftClicked;
         public event EventHandler TurnRightClicked;
         public event EventHandler OpenClicked;
+        public event EventHandler Stopped;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -50,6 +51,13 @@ namespace ComicsViewer.Actvities
                 new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
             else
                 new ViewerController(this, null);
+        }
+
+        protected override void OnStop()
+        {
+            if (Stopped != null)
+                Stopped(this, new EventArgs());
+            base.OnStop();
         }
 
         public void SetBitmap(Bitmap bitmap)
