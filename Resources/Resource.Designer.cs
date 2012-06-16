@@ -27,10 +27,10 @@ namespace ComicsViewer
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int arrow_left = 2130837504;
+			public const int arrow_left_shadow = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int arrow_right = 2130837505;
+			public const int arrow_right_shadow = 2130837505;
 			
 			// aapt resource value: 0x7f020002
 			public const int folder = 2130837506;
@@ -42,7 +42,10 @@ namespace ComicsViewer
 			public const int Icon = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int speech_balloon = 2130837509;
+			public const int open = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int speech_balloon = 2130837510;
 			
 			private Drawable()
 			{

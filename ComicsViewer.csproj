@@ -98,27 +98,18 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>
-    <AndroidResource Include="Resources\Drawable-hdpi\speech_balloon.png" />
-    <AndroidResource Include="Resources\Drawable-hdpi\folder.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\arrow_left_shadow.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\arrow_right_shadow.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\folder_up.png" />
-    <AndroidResource Include="Resources\Drawable-ldpi\folder_up.png" />
-    <AndroidResource Include="Resources\Drawable-ldpi\folder.png" />
-    <AndroidResource Include="Resources\Drawable-ldpi\speech_balloon.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\folder_up.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\folder.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\speech_balloon.png" />
-    <AndroidResource Include="Resources\Drawable-hdpi\arrow_right.png" />
-    <AndroidResource Include="Resources\Drawable-hdpi\arrow_left.png" />
-    <AndroidResource Include="Resources\Drawable-ldpi\arrow_right.png" />
-    <AndroidResource Include="Resources\Drawable-ldpi\arrow_left.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\arrow_right.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\arrow_left.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\speech_balloon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\open.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\folder.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

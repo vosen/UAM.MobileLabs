@@ -51,6 +51,10 @@ namespace ComicsViewer.Actvities
                 new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
             else
                 new ViewerController(this, null);
+
+            Paint shadow = new Paint();
+            shadow.SetShadowLayer(10,0,2, Color.Black);
+            
         }
 
         protected override void OnStop()
