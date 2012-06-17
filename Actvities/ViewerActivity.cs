@@ -50,6 +50,8 @@ namespace ComicsViewer.Actvities
             RightButton.Click += (src, args) => OnRightButtonClick(args);
             if (Intent.Extras != null && Intent.Extras.ContainsKey("ComicsPath"))
                 Controller = new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
+            else if (bundle != null && bundle.ContainsKey("ComicsPath"))
+                Controller = new ViewerController(this, bundle.GetString("ComicsPath"));
             else
                 Controller = new ViewerController(this, null);
         }
@@ -89,6 +91,13 @@ namespace ComicsViewer.Actvities
         {
             if (OpenClicked != null)
                 OpenClicked(this, e);
+        }
+
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            if(Controller.IsComicsOpen)
+                outState.PutString("ComicsPath", Controller.CurrentPath);
+            base.OnSaveInstanceState(outState);
         }
     }
 }

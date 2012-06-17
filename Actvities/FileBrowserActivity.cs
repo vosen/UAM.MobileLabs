@@ -46,7 +46,8 @@ namespace ComicsViewer.Actvities
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.FileBrowser);
             CurrentPathView = FindViewById<TextView>(Resource.Id.CurrentPath);
-            new FileBrowserController(this);
+            var prefs = GetPreferences(FileCreationMode.Private);
+            new FileBrowserController(this, prefs.GetString("BrowserPath", null));
         }
 
         protected override void OnListItemClick(ListView l, View v, int position, long id)
@@ -66,6 +67,14 @@ namespace ComicsViewer.Actvities
             {
                 temp(this, new PathChangedEventArgs(newPath));
             }
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            var editor = GetPreferences(FileCreationMode.Private).Edit();
+            editor.PutString("BrowserPath", CurrentPath);
+            editor.Commit();
         }
     }
 }

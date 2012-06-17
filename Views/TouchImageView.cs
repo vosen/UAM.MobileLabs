@@ -24,6 +24,8 @@ namespace ComicsViewer.Views
         public float TopMargin { get; set; }
         public float BottomMargin { get; set; }
         private float CurrentScale { get { return ZoomSteps[CurrentStep]; } }
+        private float ViewWidth;
+        private float ViewHeight;
 
         float transX;
         public float TranslationX
@@ -208,6 +210,13 @@ namespace ComicsViewer.Views
         protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
             base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
+            if (Width != 0 && Height != 0)
+            {
+                if (Width != ViewWidth || Height != ViewHeight)
+                    Console.WriteLine("Orientation change from {0} x {1} to {2} x {3}.", ViewWidth, ViewHeight, Width, Height);
+                ViewWidth = Width;
+                ViewHeight = Height;
+            }
             if (ImageSource == null)
                 return;
             RefreshLayout(ZoomSteps[CurrentStep], TranslationX, TranslationY);

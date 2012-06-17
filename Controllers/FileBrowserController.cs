@@ -49,11 +49,11 @@ namespace ComicsViewer.Controllers
 
         public bool IsRoot { get { return CurrentDirectory.Root.ToString() == CurrentDirectory.ToString(); } }
 
-        public FileBrowserController(FileBrowserActivity activity)
+        public FileBrowserController(FileBrowserActivity activity, string path)
         {
             Activity = activity;
             Adapter = new FileBrowserAdapter(activity, this);
-            CurrentDirectory = new DirectoryInfo(GetStoragePath());
+            CurrentDirectory = (path == null) ? new DirectoryInfo(GetStoragePath()) : new DirectoryInfo(path);
             Activity.ListAdapter = Adapter;
             Activity.ItemClicked += (src, arg) => OnListItemClicked(arg.Postion);
         }

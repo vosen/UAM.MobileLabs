@@ -6,14 +6,17 @@ using ComicsViewer.Models;
 using ComicsViewer.Actvities;
 using Android.Graphics;
 using Android.Content;
+using Android.OS;
 
 namespace ComicsViewer.Controllers
 {
     class ViewerController
     {
-        public Comics Comics { get; private set; }
+        private Comics Comics { get; set; }
         public ViewerActivity Activity { get; private set; }
         public Bitmap Current { get; private set; }
+        public string CurrentPath { get { return Comics.Path; } }
+        public bool IsComicsOpen { get { return Comics != null; } }
         private int Index { get; set; }
         private Database db;
 

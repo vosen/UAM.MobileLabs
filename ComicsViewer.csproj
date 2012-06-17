@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FileBrowserState.cs" />
     <Compile Include="Actvities\MainActivity.cs" />
     <Compile Include="Actvities\FileBrowserActivity.cs" />
     <Compile Include="Actvities\ViewerActivity.cs" />
@@ -88,6 +89,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Viewer.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout-land\Viewer.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
