@@ -15,7 +15,6 @@ namespace ComicsViewer.Actvities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            //StartActivity(typeof(FileBrowserActivity));
             StartActivity(typeof(ViewerActivity));
         }
     }

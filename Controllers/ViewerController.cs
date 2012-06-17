@@ -46,10 +46,11 @@ namespace ComicsViewer.Controllers
 
         void OpenFileBrowser()
         {
-            Activity.StartActivity(new Intent(Activity.ApplicationContext, typeof(FileBrowserActivity)));
+            var intent = new Intent(Activity.ApplicationContext, typeof(FileBrowserActivity));
+            Activity.StartActivity(intent);
         }
 
-        private void LoadComics(string path)
+        public void LoadComics(string path)
         {
             // load the comics
             Comics = Comics.FromPath(path);
@@ -77,6 +78,16 @@ namespace ComicsViewer.Controllers
             Current = BitmapFactory.DecodeByteArray(Comics.Bitmaps[idx], 0, Comics.Bitmaps[idx].Length);
             Activity.SetBitmap(Current);
             Index = idx;
+
+            if (Index == 0)
+                Activity.LeftButton.Visibility = Android.Views.ViewStates.Invisible;
+            else
+                Activity.LeftButton.Visibility = Android.Views.ViewStates.Visible;
+
+            if (Index == (Comics.Bitmaps.Length - 1))
+                Activity.RightButton.Visibility = Android.Views.ViewStates.Invisible;
+            else
+                Activity.RightButton.Visibility = Android.Views.ViewStates.Visible;
         }
 
         private void TurnLeft()

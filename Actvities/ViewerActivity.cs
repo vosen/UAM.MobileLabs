@@ -16,14 +16,15 @@ using ComicsViewer.Controllers;
 
 namespace ComicsViewer.Actvities
 {
-    [Activity(Label = "My Activity")]
+    [Activity(Label = "My Activity", LaunchMode = Android.Content.PM.LaunchMode.SingleInstance)]
     public class ViewerActivity : Activity
     {
         public TouchImageView MainImage { get; private set; }
         private ZoomControls Zoom { get; set; }
         private ImageButton OpenButton { get; set; }
-        private ImageButton LeftButton { get; set; }
-        private ImageButton RightButton { get; set; }
+        internal ImageButton LeftButton { get; set; }
+        internal ImageButton RightButton { get; set; }
+        private ViewerController Controller { get; set; }
 
         public event EventHandler TurnLeftClicked;
         public event EventHandler TurnRightClicked;
@@ -48,13 +49,16 @@ namespace ComicsViewer.Actvities
             LeftButton.Click += (src, args) => OnLeftButtonClick(args);
             RightButton.Click += (src, args) => OnRightButtonClick(args);
             if (Intent.Extras != null && Intent.Extras.ContainsKey("ComicsPath"))
-                new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
+                Controller = new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
             else
-                new ViewerController(this, null);
+                Controller = new ViewerController(this, null);
+        }
 
-            Paint shadow = new Paint();
-            shadow.SetShadowLayer(10,0,2, Color.Black);
-            
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            if (intent.Extras != null && intent.Extras.ContainsKey("ComicsPath"))
+                Controller.LoadComics(intent.Extras.GetString("ComicsPath"));
         }
 
         protected override void OnStop()

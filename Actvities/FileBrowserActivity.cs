@@ -16,7 +16,7 @@ using ComicsViewer.Controllers;
 
 namespace ComicsViewer.Actvities
 {
-    [Activity(Label = "Otwórz komiks")]
+    [Activity(Label = "Otwórz komiks", LaunchMode = Android.Content.PM.LaunchMode.SingleInstance, NoHistory = true)]
     public class FileBrowserActivity : ListActivity
     {
         private TextView CurrentPathView;
