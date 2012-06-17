@@ -48,12 +48,15 @@ namespace ComicsViewer.Actvities
             OpenButton.Click += (src, args) => OnOpenButtonClick(args);
             LeftButton.Click += (src, args) => OnLeftButtonClick(args);
             RightButton.Click += (src, args) => OnRightButtonClick(args);
+            // get preferences
+            var prefs = GetSharedPreferences("Global", FileCreationMode.Private);
+            // check bundles and prefs
             if (Intent.Extras != null && Intent.Extras.ContainsKey("ComicsPath"))
                 Controller = new ViewerController(this, Intent.Extras.GetString("ComicsPath"));
             else if (bundle != null && bundle.ContainsKey("ComicsPath"))
                 Controller = new ViewerController(this, bundle.GetString("ComicsPath"));
             else
-                Controller = new ViewerController(this, null);
+                Controller = new ViewerController(this, prefs.GetString("ComicsPath", null));
         }
 
         protected override void OnNewIntent(Intent intent)
@@ -65,8 +68,16 @@ namespace ComicsViewer.Actvities
 
         protected override void OnStop()
         {
+            if(Controller.IsComicsOpen)
+            {
+                var editor = GetSharedPreferences("Global", FileCreationMode.Private).Edit();
+                editor.PutString("ComicsPath", Controller.CurrentPath);
+                editor.Commit();
+            }
+
             if (Stopped != null)
                 Stopped(this, new EventArgs());
+
             base.OnStop();
         }
 

@@ -15,7 +15,11 @@ namespace ComicsViewer.Actvities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            StartActivity(typeof(ViewerActivity));
+            var prefs = GetSharedPreferences("Global", FileCreationMode.Private);
+            if (prefs.Contains("ComicsPath"))
+                StartActivity(typeof(ViewerActivity));
+            else
+                StartActivity(typeof(FileBrowserActivity));
         }
     }
 }
