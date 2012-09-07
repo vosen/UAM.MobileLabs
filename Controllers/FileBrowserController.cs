@@ -32,19 +32,28 @@ namespace ComicsViewer.Controllers
             }
             private set
             {
-                if (directoryInfo != null && value.FullName == directoryInfo.FullName)
-                    return;
-                directoryInfo = value;
-                OnCurrentPathChanged();
+                if ((directoryInfo == null || (directoryInfo != null && value.FullName != directoryInfo.FullName)) && OnCurrentPathChanged(value))
+                {
+                    directoryInfo = value;
+                    Activity.CurrentPath = directoryInfo.FullName;
+                    Adapter.NotifyDataSetChanged();
+                }
             }
         }
 
-        private void OnCurrentPathChanged()
+        private bool OnCurrentPathChanged(DirectoryInfo newDir)
         {
-            Files = CurrentDirectory.GetFiles().Where(fi => fi.Extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) ).ToArray();
-            Directories = CurrentDirectory.EnumerateDirectories().Where(dir => !dir.Attributes.HasFlag(FileAttributes.Hidden)).ToArray();
-            Activity.CurrentPath = CurrentDirectory.FullName;
-            Adapter.NotifyDataSetChanged();
+            try
+            {
+                Files = newDir.GetFiles().Where(fi => fi.Extension.Equals(".zip", StringComparison.OrdinalIgnoreCase)).ToArray();
+                Directories = newDir.EnumerateDirectories().Where(dir => !dir.Attributes.HasFlag(FileAttributes.Hidden)).ToArray();
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                OnDirectoryAccessFailure(newDir.FullName);
+                return false;
+            }
         }
 
         public bool IsRoot { get { return CurrentDirectory.Root.ToString() == CurrentDirectory.ToString(); } }
@@ -60,9 +69,9 @@ namespace ComicsViewer.Controllers
 
         private string GetStoragePath()
         {
-            var androidPath = Android.OS.Environment.ExternalStorageDirectory;
-            if(androidPath != null)
-                return androidPath.AbsolutePath;
+            string storageState = Android.OS.Environment.ExternalStorageState;
+            if(storageState == Android.OS.Environment.MediaMounted || storageState == Android.OS.Environment.MediaMountedReadOnly)
+                return Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         }
 
@@ -112,6 +121,11 @@ namespace ComicsViewer.Controllers
         public bool IsDirectoryRow(int position)
         {
             return (position < Directories.Length || (position == Directories.Length & !IsRoot));
+        }
+
+        private void OnDirectoryAccessFailure(string path)
+        {
+            Toast.MakeText(Activity, String.Format("Access to path {0} denied", path), ToastLength.Short).Show();
         }
     }
 }
