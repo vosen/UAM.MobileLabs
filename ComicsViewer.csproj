@@ -69,13 +69,11 @@
     <Compile Include="StreamExtensions.cs" />
     <Compile Include="Views\FileBrowserView.cs" />
     <Compile Include="SqlMapper.cs" />
-    <Compile Include="Views\TouchImageView.cs" />
-    <Compile Include="Views\TouchImageViewState.cs" />
+    <Compile Include="Views\ZoomImageView.cs" />
+    <Compile Include="Views\ZoomImageViewState.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\profile.sql" />
-    <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\Layout\FileBrowser.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

@@ -16,10 +16,10 @@ using ComicsViewer.Controllers;
 
 namespace ComicsViewer.Actvities
 {
-    [Activity(Label = "My Activity", LaunchMode = Android.Content.PM.LaunchMode.SingleInstance)]
+    [Activity(Label = "", LaunchMode = Android.Content.PM.LaunchMode.SingleInstance)]
     public class ViewerActivity : Activity
     {
-        public TouchImageView MainImage { get; private set; }
+        public ZoomImageView MainImage { get; private set; }
         private ZoomControls Zoom { get; set; }
         private ImageButton OpenButton { get; set; }
         internal ImageButton LeftButton { get; set; }
@@ -37,7 +37,7 @@ namespace ComicsViewer.Actvities
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Viewer);
             // associate the views
-            MainImage = FindViewById<TouchImageView>(Resource.Id.MainImage);
+            MainImage = FindViewById<ZoomImageView>(Resource.Id.MainImage);
             Zoom = FindViewById<ZoomControls>(Resource.Id.ZoomButtons);
             OpenButton = FindViewById<ImageButton>(Resource.Id.OpenButton);
             LeftButton = FindViewById<ImageButton>(Resource.Id.LeftButton);

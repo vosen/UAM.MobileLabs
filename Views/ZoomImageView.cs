@@ -14,18 +14,12 @@ using Android.Graphics;
 
 namespace ComicsViewer.Views
 {
-    public class TouchImageView : ImageView
+    public class ZoomImageView : ImageView
     {
         static float[] ZoomSteps = new float[] { 0.25f, 0.33f, 0.5f, 0.67f, 0.75f, 0.9f, 1.0f, 1.25f, 1.5f, 1.75f, 2.5f, 2.5f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f };
         public int CurrentStep { get; set; }
         Bitmap ImageSource { get; set; }
-        public float LeftMargin { get; set; }
-        public float RightMargin { get; set; }
-        public float TopMargin { get; set; }
-        public float BottomMargin { get; set; }
         private float CurrentScale { get { return ZoomSteps[CurrentStep]; } }
-        private float ViewWidth;
-        private float ViewHeight;
 
         float transX;
         public float TranslationX
@@ -60,21 +54,20 @@ namespace ComicsViewer.Views
             if (ImageSource == null)
                 return value;
             float imageHeight = (ImageSource.Height * CurrentScale);
-            float topSpace = value - TopMargin;
             float bottomSpace = Height - value - imageHeight;
-            if (topSpace > 0 && bottomSpace <= 0)
+            if (value > 0 && bottomSpace <= 0)
             {
                 if (imageHeight >= Height)
-                    return TopMargin;
+                    return 0;
                 else
-                    return Height - BottomMargin - imageHeight;
+                    return Height - imageHeight;
             }
-            if (topSpace <= 0 && bottomSpace > 0)
+            if (value <= 0 && bottomSpace > 0)
             {
                 if (imageHeight >= Height)
-                    return Height - BottomMargin - imageHeight;
+                    return Height - imageHeight;
                 else
-                    return TopMargin;
+                    return 0;
             }
             return value;
         }
@@ -84,38 +77,37 @@ namespace ComicsViewer.Views
             if (ImageSource == null)
                 return value;
             float imageWidth = (ImageSource.Width * CurrentScale);
-            float leftSpace = value - LeftMargin;
             float rightSpace = Width - value - imageWidth;
-            if (leftSpace > 0 && rightSpace <= 0)
+            if (value > 0 && rightSpace <= 0)
             {
                 if (imageWidth >= Width)
                     // snap to left
-                    return LeftMargin;
+                    return 0;
                 else
                     // snap to right
-                    return Width - RightMargin - imageWidth;
+                    return Width - imageWidth;
             }
-            if (leftSpace <= 0 && rightSpace > 0)
+            if (value <= 0 && rightSpace > 0)
             {
                 if (imageWidth >= Width)
                     // snap to right
-                    return Width - RightMargin - imageWidth;
+                    return Width - imageWidth;
                 else
                     // snap to left
-                    return LeftMargin;
+                    return 0;
             }
             return value;
         }
 
         float lastX, lastY;
 
-        public TouchImageView(Context context, IAttributeSet attrs) :
+        public ZoomImageView(Context context, IAttributeSet attrs) :
             base(context, attrs)
         {
             Initialize();
         }
 
-        public TouchImageView(Context context, IAttributeSet attrs, int defStyle) :
+        public ZoomImageView(Context context, IAttributeSet attrs, int defStyle) :
             base(context, attrs, defStyle)
         {
             Initialize();
@@ -134,12 +126,12 @@ namespace ComicsViewer.Views
         protected override IParcelable OnSaveInstanceState()
         {
             IParcelable parcel = base.OnSaveInstanceState();
-            return new TouchImageViewState(parcel, TranslationX, TranslationY, CurrentStep);
+            return new ZoomImageViewState(parcel, TranslationX, TranslationY, CurrentStep);
         }
 
         protected override void OnRestoreInstanceState(IParcelable state)
         {
-            TouchImageViewState savedState = state as TouchImageViewState;
+            ZoomImageViewState savedState = state as ZoomImageViewState;
             if (savedState != null)
             {
                 TranslationX = savedState.CenterX;
@@ -198,25 +190,12 @@ namespace ComicsViewer.Views
         public override void SetImageBitmap(Bitmap bm)
         {
             base.SetImageBitmap(bm);
-            if (bm == null)
-                return;
-            if (ImageSource != null)
-            {
-                // subsequent image changes
-            }
             this.ImageSource = bm;
         }
 
         protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
             base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
-            if (Width != 0 && Height != 0)
-            {
-                if (Width != ViewWidth || Height != ViewHeight)
-                    Console.WriteLine("Orientation change from {0} x {1} to {2} x {3}.", ViewWidth, ViewHeight, Width, Height);
-                ViewWidth = Width;
-                ViewHeight = Height;
-            }
             if (ImageSource == null)
                 return;
             RefreshLayout(ZoomSteps[CurrentStep], TranslationX, TranslationY);

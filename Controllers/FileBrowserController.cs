@@ -62,17 +62,30 @@ namespace ComicsViewer.Controllers
         {
             Activity = activity;
             Adapter = new FileBrowserAdapter(activity, this);
-            CurrentDirectory = (path == null) ? new DirectoryInfo(GetStoragePath()) : new DirectoryInfo(path);
+            CurrentDirectory = new DirectoryInfo(GetStoragePath(path));
             Activity.ListAdapter = Adapter;
             Activity.ItemClicked += (src, arg) => OnListItemClicked(arg.Postion);
         }
 
-        private string GetStoragePath()
+        private string ParentPath(string path)
         {
-            string storageState = Android.OS.Environment.ExternalStorageState;
-            if(storageState == Android.OS.Environment.MediaMounted || storageState == Android.OS.Environment.MediaMountedReadOnly)
-                return Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            return new DirectoryInfo(path).Parent.FullName;
+        }
+
+        private string GetStoragePath(string oldPath)
+        {
+            Console.WriteLine(oldPath);
+            Console.WriteLine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal));
+            // we check for personal folder path because otherwise there's a risk of user being stuck in /data/data/<ProgramName>
+            if (oldPath == null || oldPath.StartsWith(ParentPath(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal))))
+            {
+                string storageState = Android.OS.Environment.ExternalStorageState;
+                if (storageState == Android.OS.Environment.MediaMounted || storageState == Android.OS.Environment.MediaMountedReadOnly)
+                    return Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+                if(oldPath == null)
+                    return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            }
+            return oldPath;
         }
 
         private void OnListItemClicked(int position)
@@ -83,7 +96,6 @@ namespace ComicsViewer.Controllers
                 CurrentDirectory = Directories[position];
             else if (!IsRoot && IsDirectoryRow(position))
                 CurrentDirectory = Directories[position - 1];
-            // do something on click
             else if (!IsRoot)
                 OpenFile(Files[position - Directories.Length - 1].FullName);
             else
