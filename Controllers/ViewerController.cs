@@ -77,7 +77,10 @@ namespace ComicsViewer.Controllers
         private void OpenPage(int idx)
         {
             if (Current != null)
+            {
+                Current.Recycle();
                 Current.Dispose();
+            }
             Current = BitmapFactory.DecodeByteArray(Comics.Bitmaps[idx], 0, Comics.Bitmaps[idx].Length);
             Activity.SetBitmap(Current);
             Index = idx;

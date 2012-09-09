@@ -45,7 +45,7 @@ namespace ComicsViewer.Controllers
         {
             try
             {
-                Files = newDir.GetFiles().Where(fi => fi.Extension.Equals(".zip", StringComparison.OrdinalIgnoreCase)).ToArray();
+                Files = newDir.GetFiles().Where(fi => fi.Extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) || fi.Extension.Equals(".cbz", StringComparison.OrdinalIgnoreCase)).ToArray();
                 Directories = newDir.EnumerateDirectories().Where(dir => !dir.Attributes.HasFlag(FileAttributes.Hidden)).ToArray();
                 return true;
             }
@@ -67,12 +67,12 @@ namespace ComicsViewer.Controllers
             Activity.ItemClicked += (src, arg) => OnListItemClicked(arg.Postion);
         }
 
-        private string ParentPath(string path)
+        internal static string ParentPath(string path)
         {
             return new DirectoryInfo(path).Parent.FullName;
         }
 
-        private string GetStoragePath(string oldPath)
+        internal static string GetStoragePath(string oldPath)
         {
             Console.WriteLine(oldPath);
             Console.WriteLine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal));
@@ -80,7 +80,7 @@ namespace ComicsViewer.Controllers
             if (oldPath == null || oldPath.StartsWith(ParentPath(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal))))
             {
                 string storageState = Android.OS.Environment.ExternalStorageState;
-                if (storageState == Android.OS.Environment.MediaMounted || storageState == Android.OS.Environment.MediaMountedReadOnly)
+                if (storageState == Android.OS.Environment.MediaMounted)
                     return Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
                 if(oldPath == null)
                     return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
